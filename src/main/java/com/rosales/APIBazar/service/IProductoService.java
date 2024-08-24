@@ -4,7 +4,6 @@ package com.rosales.APIBazar.service;
 import com.rosales.APIBazar.dto.ProductoVentaDto;
 import com.rosales.APIBazar.model.Producto;
 import java.util.List;
-import java.util.Map;
 
 public interface IProductoService {
     

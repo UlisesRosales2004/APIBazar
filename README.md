@@ -3,7 +3,7 @@
 Este proyecto es el trabajo final del curso "Desarrollo de APIs en Java con Spring Boot" de TodoCode Academy.
 
 
-Actualización (24-08-2024): Se realizaron cambios en el modelado de clases y en la lógica del proyecto base para permitir un manejo dinámico del stock de productos al crear, editar y eliminar ventas.
+Actualización (24-08-2024): Se realizaron cambios en el modelado de clases y en la lógica del proyecto base para permitir un calculo automatico del total de una venta y un manejo dinámico del stock de productos al crear, editar y eliminar ventas.
 
 
 Descripción del Proyecto

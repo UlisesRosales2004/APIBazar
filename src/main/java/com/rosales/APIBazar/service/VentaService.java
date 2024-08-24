@@ -8,7 +8,6 @@ import com.rosales.APIBazar.repository.IProductoRepository;
 import com.rosales.APIBazar.repository.IVentaRepository;
 import jakarta.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +43,8 @@ public class VentaService implements IVentaService {
                 Producto producto = produVenta.getProducto();
                 produRepo.save(producto);
             }
+            venta.setTotal(venta.calcularTotal());
+            System.out.println(venta.getTotal());
             ventaRepo.save(venta);
         } catch (Exception e) {
             return "Error al guardar la venta: " + e.getMessage();
@@ -135,7 +136,7 @@ public class VentaService implements IVentaService {
         // Actualizar la venta existente con los nuevos datos
         ventaRep.setFecha_venta(ventaa.getFecha_venta());
         ventaRep.setProductosConCantidad(ventaa.getProductosConCantidad());
-        ventaRep.setTotal(ventaa.getTotal());
+        ventaRep.setTotal(ventaRep.calcularTotal());
         ventaRep.setUnCliente(ventaa.getUnCliente());
 
         try {

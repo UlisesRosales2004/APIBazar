@@ -6,14 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapKeyJoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 @Getter@Setter
@@ -31,12 +27,21 @@ public class Venta {
 
     public Venta() {}
 
-    public Venta(Long codigo_venta, LocalDate fecha_venta, Double total, List<ProductoVentaDto> productosConCantidad, Cliente unCliente) {
+    public Venta(Long codigo_venta, LocalDate fecha_venta, List<ProductoVentaDto> productosConCantidad, Cliente unCliente) {
         this.codigo_venta = codigo_venta;
         this.fecha_venta = fecha_venta;
-        this.total = total;
         this.productosConCantidad = productosConCantidad;
         this.unCliente = unCliente;
+    }
+    public Double calcularTotal(){
+        Double total=0.0;
+        List<ProductoVentaDto> listaProductos = this.productosConCantidad;
+        for (ProductoVentaDto produVenta : listaProductos) {
+            Producto producto = produVenta.getProducto();
+            Double cantidad = produVenta.getCantidadVendida();
+            total=total+(cantidad*producto.getCosto());
+        }
+        return total;
     }
 
 }
