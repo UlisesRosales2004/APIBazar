@@ -127,7 +127,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"codigo_producto\": 102,\r\n    \"nombre\": \"Cuaderno A5\",\r\n    \"marca\": \"PapeleríaPlus\",\r\n    \"costo\": 3.50,\r\n    \"cantidad_disponible\": 150\r\n}",
+					"raw": "{\r\n    \"codigo_producto\": 10000,\r\n    \"nombre\": \"Cuaderno A5\",\r\n    \"marca\": \"PapeleríaPlus\",\r\n    \"costo\": 3.50,\r\n    \"cantidad_disponible\": 150\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -212,7 +212,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"codigo_producto\": 10000,\r\n    \"nombre\": \"Cuaderno A5\",\r\n    \"marca\": \"PapeleríaPlus\",\r\n    \"costo\": 3.50,\r\n    \"cantidad_disponible\": 4\r\n}",
+					"raw": "{\r\n    \"codigo_producto\": 1,\r\n    \"nombre\": \"Cuaderno A5\",\r\n    \"marca\": \"PapeleríaPlus\",\r\n    \"costo\": 3.50,\r\n    \"cantidad_disponible\": 200\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -280,7 +280,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"codigo_venta\": 1,\r\n  \"fecha_venta\": \"2024-08-16\",\r\n  \"total\": 150.75,\r\n  \"listaProductos\": [\r\n    {\r\n      \"codigo_producto\": 1\r\n    }\r\n  ],\r\n  \"unCliente\": {\r\n    \"id_cliente\": 1\r\n  }\r\n}",
+					"raw": "{\r\n  \"codigo_venta\": 10000000000,\r\n  \"fecha_venta\": \"2024-08-16\",\r\n  \"total\": 150.75,\r\n  \"productosConCantidad\": [\r\n    {\r\n      \"id\":100000000,\r\n      \"producto\": {\r\n        \"codigo_producto\": 1,\r\n        \"nombre\": \"Cuaderno A5\",\r\n        \"marca\": \"PapeleríaPlus\",\r\n        \"costo\": 3.5,\r\n        \"cantidad_disponible\": 150.0\r\n      },\r\n      \"cantidadVendida\":10\r\n    }\r\n  ],\r\n  \"unCliente\": {\r\n    \"id_cliente\": 1\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -365,7 +365,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"codigo_venta\": 1000,\r\n  \"fecha_venta\": \"2024-08-16\",\r\n  \"total\": 190.33,\r\n  \"listaProductos\": [\r\n    {\r\n      \"codigo_producto\": 1\r\n    }\r\n  ],\r\n  \"unCliente\": {\r\n    \"id_cliente\": 1\r\n  }\r\n}",
+					"raw": "{\r\n  \"codigo_venta\": 1,\r\n  \"fecha_venta\": \"2024-08-16\",\r\n  \"total\": 1500.75,\r\n  \"productosConCantidad\": [\r\n    {\r\n      \"id\": 1,\r\n      \"producto\": {\r\n        \"codigo_producto\": 1,\r\n        \"nombre\": \"Cuaderno A5\",\r\n        \"marca\": \"PapeleríaPlus\",\r\n        \"costo\": 3.5,\r\n        \"cantidad_disponible\": 150.0\r\n      },\r\n      \"cantidadVendida\":50\r\n    }\r\n  ],\r\n  \"unCliente\": {\r\n    \"id_cliente\": 1\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -373,7 +373,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/ventas/editar/1",
+					"raw": "localhost:8080/ventas/editar/2",
 					"host": [
 						"localhost"
 					],
@@ -381,7 +381,7 @@
 					"path": [
 						"ventas",
 						"editar",
-						"1"
+						"2"
 					]
 				}
 			},

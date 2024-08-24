@@ -1,8 +1,10 @@
 package com.rosales.APIBazar.controller;
 
+import com.rosales.APIBazar.dto.ProductoVentaDto;
 import com.rosales.APIBazar.model.Producto;
 import com.rosales.APIBazar.service.IProductoService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +42,7 @@ public class ProductoController {
         return produServ.GetProductoSinStock();
     }
     @GetMapping("/ventas/productos/{codigo_venta}")
-    public List<Producto> GetProductoPorVenta(@PathVariable Long codigo_venta){
+    public List<ProductoVentaDto> GetProductoPorVenta(@PathVariable Long codigo_venta){
         return produServ.GetProductoPorVenta(codigo_venta);
     }
 }

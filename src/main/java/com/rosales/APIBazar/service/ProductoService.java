@@ -1,10 +1,12 @@
 
 package com.rosales.APIBazar.service;
 
+import com.rosales.APIBazar.dto.ProductoVentaDto;
 import com.rosales.APIBazar.model.Producto;
 import com.rosales.APIBazar.repository.IProductoRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,8 +69,8 @@ public class ProductoService implements IProductoService{
     }
 
     @Override
-    public List<Producto> GetProductoPorVenta(Long codigoVenta) {
-        List<Producto> listaProductos=ventaServ.FindVenta(codigoVenta).getListaProductos();
+    public List<ProductoVentaDto> GetProductoPorVenta(Long codigoVenta) {
+        List<ProductoVentaDto> listaProductos=ventaServ.FindVenta(codigoVenta).getProductosConCantidad();
         return listaProductos;
     }
     
