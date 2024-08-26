@@ -1,15 +1,16 @@
+com\rosales\APIBazar\dto\ProductoVentaDto.class
 com\rosales\APIBazar\controller\ClienteController.class
 com\rosales\APIBazar\model\Producto.class
 com\rosales\APIBazar\repository\IVentaRepository.class
 com\rosales\APIBazar\service\IProductoService.class
 com\rosales\APIBazar\repository\IProductoRepository.class
 com\rosales\APIBazar\model\Cliente.class
-com\rosales\APIBazar\dto\VentaProductoDto.class
 com\rosales\APIBazar\service\VentaService.class
 com\rosales\APIBazar\service\IVentaService.class
 com\rosales\APIBazar\controller\ProductoController.class
 com\rosales\APIBazar\model\Venta.class
 com\rosales\APIBazar\service\ClienteService.class
+com\rosales\APIBazar\dto\VentaClienteProductoDto.class
 com\rosales\APIBazar\ApiBazarApplication.class
 com\rosales\APIBazar\controller\VentaController.class
 com\rosales\APIBazar\service\ProductoService.class

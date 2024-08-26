@@ -35,8 +35,13 @@ public class ClienteService implements IClienteService{
         if (cliente == null) {
             return "Cliente no encontrado";
         }
-        clieRepo.deleteById(id);
-        return "Se a eliminado correctamente";
+        try {
+            clieRepo.deleteById(id);
+            return "Se a eliminado correctamente";
+        } catch (Exception e) {
+            return "Primero debe eliminar las ventas relacionadas al cliente";
+        }
+        
     }
 
     @Override

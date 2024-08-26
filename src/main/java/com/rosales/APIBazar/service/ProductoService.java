@@ -1,4 +1,3 @@
-
 package com.rosales.APIBazar.service;
 
 import com.rosales.APIBazar.dto.ProductoVentaDto;
@@ -10,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductoService implements IProductoService{
+public class ProductoService implements IProductoService {
+
     @Autowired
     private IProductoRepository prodRepo;
     @Autowired
     private IVentaService ventaServ;
+
     @Override
     public String SaveProducto(Producto produ) {
         prodRepo.save(produ);
@@ -33,17 +34,21 @@ public class ProductoService implements IProductoService{
 
     @Override
     public String DeleteProducto(Long id) {
-        Producto producto=this.FindProducto(id);
+        Producto producto = this.FindProducto(id);
         if (producto == null) {
             return "Producto no encontrado";
         }
-        prodRepo.deleteById(id);
-        return "Se a eliminado correctamente";
+        try {
+            prodRepo.deleteById(id);
+            return "Se a eliminado correctamente";
+        } catch (Exception e) {
+            return "Primero debe eliminar las ventas relacionadas al producto";
+        }
     }
 
     @Override
     public String EditProducto(Long id, Producto produ) {
-        Producto producto=this.FindProducto(id);
+        Producto producto = this.FindProducto(id);
         if (producto == null) {
             return "Producto no encontrado";
         }
@@ -57,10 +62,10 @@ public class ProductoService implements IProductoService{
 
     @Override
     public List<Producto> GetProductoSinStock() {
-        List<Producto>listaProductos=this.GetProductos();
-        List<Producto>listProdSinStock=new ArrayList<>();
-        for(Producto produ:listaProductos){
-            if (produ.getCantidad_disponible()<5.0) {
+        List<Producto> listaProductos = this.GetProductos();
+        List<Producto> listProdSinStock = new ArrayList<>();
+        for (Producto produ : listaProductos) {
+            if (produ.getCantidad_disponible() < 5.0) {
                 listProdSinStock.add(produ);
             }
         }
@@ -69,10 +74,8 @@ public class ProductoService implements IProductoService{
 
     @Override
     public List<ProductoVentaDto> GetProductoPorVenta(Long codigoVenta) {
-        List<ProductoVentaDto> listaProductos=ventaServ.FindVenta(codigoVenta).getProductosConCantidad();
+        List<ProductoVentaDto> listaProductos = ventaServ.FindVenta(codigoVenta).getProductosConCantidad();
         return listaProductos;
     }
-    
-    
-    
+
 }

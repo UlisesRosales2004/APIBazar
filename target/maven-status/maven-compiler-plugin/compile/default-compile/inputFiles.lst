@@ -2,7 +2,8 @@ C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Bo
 C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Boot\Proyectos\APIBazar\src\main\java\com\rosales\APIBazar\controller\ClienteController.java
 C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Boot\Proyectos\APIBazar\src\main\java\com\rosales\APIBazar\controller\ProductoController.java
 C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Boot\Proyectos\APIBazar\src\main\java\com\rosales\APIBazar\controller\VentaController.java
-C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Boot\Proyectos\APIBazar\src\main\java\com\rosales\APIBazar\dto\VentaProductoDto.java
+C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Boot\Proyectos\APIBazar\src\main\java\com\rosales\APIBazar\dto\ProductoVentaDto.java
+C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Boot\Proyectos\APIBazar\src\main\java\com\rosales\APIBazar\dto\VentaClienteProductoDto.java
 C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Boot\Proyectos\APIBazar\src\main\java\com\rosales\APIBazar\model\Cliente.java
 C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Boot\Proyectos\APIBazar\src\main\java\com\rosales\APIBazar\model\Producto.java
 C:\Users\USUARIO\OneDrive\Escritorio\Educacion\apuntes de programacion\Spring Boot\Proyectos\APIBazar\src\main\java\com\rosales\APIBazar\model\Venta.java
