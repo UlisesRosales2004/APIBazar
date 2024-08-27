@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.rosales.APIBazar.ApiBazarApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.981 s -- in com.rosales.APIBazar.ApiBazarApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.721 s -- in com.rosales.APIBazar.ApiBazarApplicationTests
