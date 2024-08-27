@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   api_bazar:
     build:
@@ -15,6 +16,7 @@ services:
     depends_on:
       api_bazar_sql:
         condition: service_healthy
+        
   api_bazar_sql:
     image: mysql:8.0.33
     ports:
