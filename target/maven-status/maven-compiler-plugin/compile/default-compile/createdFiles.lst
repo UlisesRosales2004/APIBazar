@@ -12,6 +12,7 @@ com\rosales\APIBazar\model\Venta.class
 com\rosales\APIBazar\service\ClienteService.class
 com\rosales\APIBazar\dto\VentaClienteProductoDto.class
 com\rosales\APIBazar\ApiBazarApplication.class
+com\rosales\APIBazar\config\WebConfig.class
 com\rosales\APIBazar\controller\VentaController.class
 com\rosales\APIBazar\service\ProductoService.class
 com\rosales\APIBazar\repository\IClienteRepository.class
