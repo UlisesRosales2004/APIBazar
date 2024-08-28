@@ -21,11 +21,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/clientes/crear",
+					"raw": "https://apibazar.onrender.com/clientes/crear",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"clientes",
 						"crear"
@@ -40,11 +42,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/clientes",
+					"raw": "https://apibazar.onrender.com/clientes",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"clientes"
 					]
@@ -58,11 +62,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/clientes/1",
+					"raw": "https://apibazar.onrender.com/clientes/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"clientes",
 						"1"
@@ -77,11 +83,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/clientes/eliminar/1",
+					"raw": "https://apibazar.onrender.com/clientes/eliminar/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"clientes",
 						"eliminar",
@@ -106,11 +114,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/clientes/editar/1",
+					"raw": "https://apibazar.onrender.com/clientes/editar/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"clientes",
 						"editar",
@@ -135,11 +145,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/productos/crear",
+					"raw": "https://apibazar.onrender.com/productos/crear",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"productos",
 						"crear"
@@ -154,11 +166,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/productos",
+					"raw": "https://apibazar.onrender.com/productos",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"productos"
 					]
@@ -172,11 +186,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/productos/1",
+					"raw": "https://apibazar.onrender.com/productos/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"productos",
 						"1"
@@ -191,11 +207,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/productos/eliminar/1",
+					"raw": "https://apibazar.onrender.com/productos/eliminar/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"productos",
 						"eliminar",
@@ -220,11 +238,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/productos/editar/1",
+					"raw": "https://apibazar.onrender.com/productos/editar/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"productos",
 						"editar",
@@ -240,11 +260,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/productos/falta_stock",
+					"raw": "https://apibazar.onrender.com/productos/falta_stock",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"productos",
 						"falta_stock"
@@ -259,11 +281,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/ventas/productos/1",
+					"raw": "https://apibazar.onrender.com/ventas/productos/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ventas",
 						"productos",
@@ -288,11 +312,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/ventas/crear",
+					"raw": "https://apibazar.onrender.com/ventas/crear",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ventas",
 						"crear"
@@ -307,11 +333,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/ventas",
+					"raw": "https://apibazar.onrender.com/ventas",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ventas"
 					]
@@ -325,11 +353,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/ventas/1",
+					"raw": "https://apibazar.onrender.com/ventas/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ventas",
 						"1"
@@ -344,11 +374,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/ventas/eliminar/1",
+					"raw": "https://apibazar.onrender.com/ventas/eliminar/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ventas",
 						"eliminar",
@@ -373,11 +405,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/ventas/editar/1",
+					"raw": "https://apibazar.onrender.com/ventas/editar/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ventas",
 						"editar",
@@ -393,15 +427,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/ventas/fecha/2024-08-16",
+					"raw": "https://apibazar.onrender.com/ventas/fecha/2024-08-28",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ventas",
 						"fecha",
-						"2024-08-16"
+						"2024-08-28"
 					]
 				}
 			},
@@ -413,11 +449,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/ventas/mayor_venta",
+					"raw": "https://apibazar.onrender.com/ventas/mayor_venta",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"apibazar",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"ventas",
 						"mayor_venta"
