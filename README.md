@@ -14,12 +14,13 @@ Este proyecto consiste en el desarrollo de una API RESTful para gestionar un sis
 
 Para más detalles sobre el escenario y las condiciones del proyecto, puedes consultar el siguiente enlace:
 
-Escenario del Proyecto
+[Escenario del Proyecto](https://todocodeacademy.com/archivos/ProyectoFinalTodoCodeSpringBootCom1.pdf#toolbar=0)
 
 #Pruebas
+
 Las pruebas de la API se pueden realizar de dos maneras:
 
-Usando la web "Gestión de comercio": https://frontforapibazar.onrender.com/index.html
+Usando la web "Gestión de comercio": [Gestión de comercio](https://frontforapibazar.onrender.com/index.html)
 
 Es una web creada por mí con la finalidad de agregarle una interfaz gráfica al proyecto. En la misma se pueden realizar pruebas de todos los endpoints.
 
@@ -28,5 +29,6 @@ Para el correcto uso de la web, se recomienda hacer clic en el botón "Comprobar
 Usando el archivo Postman: (APIBazar.postman_collection) incluido en la carpeta principal del proyecto, para realizar pruebas manuales de todos los endpoints.
 
 #Objetivo
+
 El objetivo de este proyecto es demostrar mis conocimientos y habilidades en el desarrollo de APIs con Spring Boot y tecnologías relacionadas, como Hibernate, bases de datos, y herramientas de prueba como Postman.
 
