@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayor Venta</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .venta-detalle {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e9e9e9;
+        }
+
+        .venta-detalle p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .message.error {
+            color: red;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mayor Venta</h1>
+        <button id="consultarVenta">Consultar Mayor Venta</button>
+        <div id="ventaDetalle" class="venta-detalle" style="display:none;"></div>
+        <div id="message" class="message error" style="display:none;"></div>
+        <a href="ventas.html">Volver</a>
+    </div>
+
+    <script>
+        document.getElementById("consultarVenta").addEventListener("click", function() {
+            consultarMayorVenta();
+        });
+
+        function consultarMayorVenta() {
+            fetch('https://apibazar.onrender.com/ventas/mayor_venta')
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        mostrarVentaDetalle(data);
+                    } else {
+                        mostrarMensaje("No se encontró ninguna venta.", 'error');
+                    }
+                })
+                .catch(error => {
+                    mostrarMensaje('Error al consultar la mayor venta: ' + error, 'error');
+                });
+        }
+
+        function mostrarVentaDetalle(venta) {
+            const ventaDetalle = document.getElementById("ventaDetalle");
+            ventaDetalle.innerHTML = `
+                <p><strong>Código de Venta:</strong> ${venta.codigo_venta}</p>
+                <p><strong>Total:</strong> $${venta.total}</p>
+                <p><strong>Cantidad Total de Productos:</strong> ${venta.cantidad_total_de_productos}</p>
+                <p><strong>Cliente:</strong> ${venta.nombre_del_cliente} ${venta.apellido_del_cliente}</p>
+            `;
+            ventaDetalle.style.display = 'block';
+        }
+
+        function mostrarMensaje(mensaje, tipo) {
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = mensaje;
+            messageDiv.style.display = 'block';
+            messageDiv.className = 'message ' + tipo;
+            setTimeout(() => messageDiv.style.display = 'none', 5000);
+        }
+    </script>
+</body>
+</html>

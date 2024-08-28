@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Comercio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .menu {
+            margin-top: 50px;
+        }
+
+        .menu a {
+            display: block;
+            margin: 20px 0;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .menu a:hover {
+            background-color: #0056b3;
+        }
+
+        .button-container {
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .status {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .status.success {
+            border: 1px solid #28a745;
+            background-color: #e9ffe9;
+            color: #28a745;
+        }
+
+        .status.error {
+            border: 1px solid #dc3545;
+            background-color: #ffe9e9;
+            color: #dc3545;
+        }
+
+        .status.loading {
+            border: 1px solid #007bff;
+            background-color: #e9f0ff;
+            color: #007bff;
+        }
+        footer {
+        margin-top: 50px;
+        padding: 10px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        font-size: 14px;
+        border-top: 1px solid #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestión de Comercio</h1>
+    <div class="menu">
+        <a href="clientes/clientes.html">Clientes</a>
+        <a href="productos/productos.html">Productos</a>
+        <a href="ventas/ventas.html">Ventas</a>
+    </div>
+
+    <div class="button-container">
+        <button id="checkConnection">Comprobar Conexión</button>
+        <div id="statusMessage" class="status"></div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Hugo Ulises Rosales. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+        document.getElementById("checkConnection").addEventListener("click", function() {
+            comprobarConexion();
+        });
+
+        function comprobarConexion() {
+            const statusMessage = document.getElementById("statusMessage");
+            statusMessage.className = 'status loading';
+            statusMessage.textContent = 'Conectando...';
+            statusMessage.style.display = 'block'; // Asegúrate de que el mensaje esté visible
+
+            fetch('https://apibazar.onrender.com/clientes')
+                .then(response => {
+                    if (response.ok) {
+                        return response.json(); // Asegúrate de obtener una respuesta JSON
+                    } else {
+                        throw new Error('No se pudo conectar con el servidor');
+                    }
+                })
+                .then(data => {
+                    statusMessage.className = 'status success';
+                    statusMessage.textContent = 'Conexión exitosa.';
+                })
+                .catch(error => {
+                    statusMessage.className = 'status error';
+                    statusMessage.textContent = 'Error: ' + error.message;
+                });
+        }
+    </script>
+</body>
+</html>

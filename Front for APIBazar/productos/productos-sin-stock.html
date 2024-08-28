@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos Sin Stock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Productos Con Poco Stock</h1>
+    <div class="container">
+        <table id="productos-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Costo</th>
+                    <th>Cantidad Disponible</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los productos se mostrarán aquí -->
+            </tbody>
+        </table>
+        <div class="message" id="mensaje">
+            <!-- Mensajes de éxito o error se mostrarán aquí -->
+        </div>
+        <a href="productos.html">Volver</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchProductosSinStock();
+        });
+
+        function fetchProductosSinStock() {
+            fetch('https://apibazar.onrender.com/productos/falta_stock', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(productos => {
+                const tableBody = document.getElementById('productos-table').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
+
+                if (productos.length > 0) {
+                    productos.forEach(producto => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${producto.codigo_producto}</td>
+                            <td>${producto.nombre}</td>
+                            <td>${producto.marca}</td>
+                            <td>${producto.costo}</td>
+                            <td>${producto.cantidad_disponible}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    document.getElementById('mensaje').innerText = 'No hay productos sin stock.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('mensaje').innerText = 'Error al cargar los productos.';
+            });
+        }
+    </script>
+</body>
+</html>

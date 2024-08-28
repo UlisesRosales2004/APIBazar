@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Producto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Producto</h1>
+    <div class="container">
+        <form id="editar-producto-form">
+            <label for="id_producto">ID del Producto:</label>
+            <input type="text" id="id_producto" required>
+            
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+            
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca" required>
+            
+            <label for="costo">Costo:</label>
+            <input type="number" id="costo" step="0.01" required>
+            
+            <label for="cantidad_disponible">Cantidad Disponible:</label>
+            <input type="number" id="cantidad_disponible" step="1" required>
+            
+            <button type="submit">Editar Producto</button>
+        </form>
+        <div class="message" id="mensaje">
+            <!-- Mensajes de éxito o error se mostrarán aquí -->
+        </div>
+        <a href="productos.html">Volver</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('editar-producto-form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                editarProducto();
+            });
+        });
+
+        function editarProducto() {
+            const idProducto = document.getElementById('id_producto').value;
+            const nombre = document.getElementById('nombre').value;
+            const marca = document.getElementById('marca').value;
+            const costo = document.getElementById('costo').value;
+            const cantidadDisponible = document.getElementById('cantidad_disponible').value;
+
+            const producto = {
+                nombre: nombre,
+                marca: marca,
+                costo: parseFloat(costo),
+                cantidad_disponible: parseFloat(cantidadDisponible)
+            };
+
+            fetch(`https://apibazar.onrender.com/productos/editar/${idProducto}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(producto)
+            })
+            .then(response => response.text())
+            .then(message => {
+                document.getElementById('mensaje').innerText = message;
+                document.getElementById('editar-producto-form').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('mensaje').innerText = 'Error al editar el producto.';
+            });
+        }
+    </script>
+</body>
+</html>

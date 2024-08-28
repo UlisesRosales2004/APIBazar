@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas por Día</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="date"], button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .message {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .message.success {
+            color: green;
+        }
+
+        .message.error {
+            color: red;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ventas por Día</h1>
+        <form id="ventasPorDiaForm">
+            <label for="fecha">Seleccionar Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <button type="submit">Consultar Ventas</button>
+        </form>
+        <div id="message" class="message"></div>
+        <a href="ventas.html">Volver</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ventasPorDiaForm = document.getElementById("ventasPorDiaForm");
+            const messageDiv = document.getElementById("message");
+
+            ventasPorDiaForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const fecha = document.getElementById("fecha").value;
+                consultarVentasPorDia(fecha);
+            });
+
+            function consultarVentasPorDia(fecha) {
+                fetch(`https://apibazar.onrender.com/ventas/fecha/${fecha}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        mostrarMensaje(data, 'success');
+                    })
+                    .catch(error => {
+                        mostrarMensaje('Error al consultar ventas: ' + error, 'error');
+                    });
+            }
+
+            function mostrarMensaje(mensaje, tipo) {
+                messageDiv.textContent = mensaje;
+                messageDiv.style.display = 'block';
+                messageDiv.className = 'message ' + tipo;
+                setTimeout(() => messageDiv.style.display = 'none', 7000);
+            }
+        });
+    </script>
+</body>
+</html>

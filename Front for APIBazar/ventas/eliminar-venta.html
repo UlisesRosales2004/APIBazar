@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Venta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Eliminar Venta</h1>
+        <form id="eliminarVentaForm">
+            <label for="venta">Seleccionar Venta:</label>
+            <select id="venta" name="venta" required></select>
+
+            <button type="submit">Eliminar Venta</button>
+        </form>
+        <div id="message" class="message"></div>
+        <a href="ventas.html">Volver</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const eliminarVentaForm = document.getElementById("eliminarVentaForm");
+            const ventaSelect = document.getElementById("venta");
+            const messageDiv = document.getElementById("message");
+
+            cargarVentas();
+
+            eliminarVentaForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                eliminarVenta(ventaSelect.value);
+            });
+
+            function cargarVentas() {
+                fetch('https://apibazar.onrender.com/ventas')
+                    .then(response => response.json())
+                    .then(data => {
+                        ventaSelect.innerHTML = '';
+                        data.forEach(venta => {
+                            const option = document.createElement("option");
+                            option.value = venta.codigo_venta;
+                            option.textContent = `Venta #${venta.codigo_venta} - ${venta.fecha_venta}`;
+                            ventaSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        mostrarMensaje('Error al cargar ventas: ' + error, 'error');
+                    });
+            }
+
+            function eliminarVenta(codigoVenta) {
+                fetch(`https://apibazar.onrender.com/ventas/eliminar/${codigoVenta}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.text())
+                .then(data => {
+                    mostrarMensaje(data, 'success');
+                    cargarVentas(); // Recargar la lista de ventas después de eliminar una
+                })
+                .catch(error => {
+                    mostrarMensaje('Error al eliminar la venta: ' + error, 'error');
+                });
+            }
+
+            function mostrarMensaje(mensaje, tipo) {
+                messageDiv.textContent = mensaje;
+                messageDiv.style.display = 'block';
+                messageDiv.className = 'message ' + tipo;
+                setTimeout(() => messageDiv.style.display = 'none', 5000);
+            }
+        });
+    </script>
+</body>
+</html>

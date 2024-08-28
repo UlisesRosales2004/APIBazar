@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Venta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        select, input[type="number"], input[type="date"] {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .productos {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .add-product {
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .producto-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .producto-item label,
+        .producto-item select,
+        .producto-item input {
+            margin-right: 10px;
+        }
+
+        .producto-item button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .producto-item button:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Crear Venta</h1>
+    <div class="container">
+        <div class="section">
+            <form id="crearVentaForm">
+                <label for="fechaVenta">Fecha de Venta:</label>
+                <input type="date" id="fechaVenta" name="fechaVenta" required>
+
+                <div id="productosContainer" class="productos">
+                    <div class="producto-item">
+                        <label for="producto1">Producto:</label>
+                        <select id="producto1" name="producto1" class="producto-select" required></select>
+
+                        <label for="cantidad1">Cantidad Vendida:</label>
+                        <input type="number" id="cantidad1" name="cantidad1" min="1" required>
+
+                        <button type="button" class="eliminarProductoBtn">Eliminar</button>
+                    </div>
+                </div>
+
+                <button type="button" id="agregarProductoBtn">Agregar Otro Producto</button>
+
+                <label for="cliente">Cliente:</label>
+                <select id="cliente" name="cliente" required></select>
+
+                <button type="submit">Crear Venta</button>
+            </form>
+            <div id="message" class="message" style="display:none;"></div>
+        </div>
+        <a href="ventas.html">Volver</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const productosContainer = document.getElementById("productosContainer");
+            const agregarProductoBtn = document.getElementById("agregarProductoBtn");
+            const crearVentaForm = document.getElementById("crearVentaForm");
+            const messageDiv = document.getElementById("message");
+
+            let productoCount = 1;
+            let productosDisponibles = [];
+
+            cargarProductos();
+            cargarClientes();
+
+            agregarProductoBtn.addEventListener("click", function() {
+                productoCount++;
+                const newProductDiv = document.createElement("div");
+                newProductDiv.className = "producto-item";
+                newProductDiv.innerHTML = `
+                    <label for="producto${productoCount}">Producto:</label>
+                    <select id="producto${productoCount}" name="producto${productoCount}" class="producto-select" required></select>
+                    <label for="cantidad${productoCount}">Cantidad Vendida:</label>
+                    <input type="number" id="cantidad${productoCount}" name="cantidad${productoCount}" min="1" required>
+                    <button type="button" class="eliminarProductoBtn">Eliminar</button>
+                `;
+                productosContainer.appendChild(newProductDiv);
+                cargarProductos(`#producto${productoCount}`);
+                actualizarOpcionesProductos();
+            });
+
+            productosContainer.addEventListener("click", function(event) {
+                if (event.target.classList.contains("eliminarProductoBtn")) {
+                    event.target.parentElement.remove();
+                    actualizarOpcionesProductos();
+                    productoCount--;
+                }
+            });
+
+            crearVentaForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                crearVenta();
+            });
+
+            function cargarProductos(selector = "#producto1") {
+                fetch('https://apibazar.onrender.com/productos')
+                    .then(response => response.json())
+                    .then(data => {
+                        productosDisponibles = data;
+                        const selectElement = document.querySelector(selector);
+                        selectElement.innerHTML = '';
+                        data.forEach(producto => {
+                            const option = document.createElement("option");
+                            option.value = producto.codigo_producto;
+                            option.textContent = `${producto.nombre} (${producto.marca}) - Disponible: ${producto.cantidad_disponible}`;
+                            selectElement.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar productos:', error);
+                    });
+            }
+
+            function cargarClientes() {
+                fetch('https://apibazar.onrender.com/clientes')
+                    .then(response => response.json())
+                    .then(data => {
+                        const clienteSelect = document.getElementById("cliente");
+                        clienteSelect.innerHTML = '';
+                        data.forEach(cliente => {
+                            const option = document.createElement("option");
+                            option.value = cliente.id_cliente;
+                            option.textContent = `${cliente.nombre} ${cliente.apellido}`;
+                            clienteSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar clientes:', error);
+                    });
+            }
+
+            function crearVenta() {
+                const fechaVenta = document.getElementById("fechaVenta").value;
+                const productosConCantidad = [];
+
+                const productoItems = productosContainer.querySelectorAll(".producto-item");
+                productoItems.forEach((item, index) => {
+                    const codigoProducto = item.querySelector(`select`).value;
+                    const cantidadVendida = item.querySelector(`input`).value;
+
+                    const productoSeleccionado = productosDisponibles.find(p => p.codigo_producto == codigoProducto);
+
+                    productosConCantidad.push({
+                        producto: productoSeleccionado,
+                        cantidadVendida: cantidadVendida
+                    });
+                });
+
+                const unCliente = {
+                    id_cliente: document.getElementById("cliente").value
+                };
+
+                const ventaData = {
+                    fecha_venta: fechaVenta,
+                    productosConCantidad: productosConCantidad,
+                    unCliente: unCliente
+                };
+
+                fetch('https://apibazar.onrender.com/ventas/crear', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(ventaData)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    mostrarMensaje(data, 'success');
+                })
+                .catch(error => {
+                    mostrarMensaje('Error al crear la venta: ' + error, 'error');
+                });
+            }
+
+            function actualizarOpcionesProductos() {
+                const seleccionados = Array.from(document.querySelectorAll('.producto-select'))
+                    .map(select => select.value);
+
+                document.querySelectorAll('.producto-select').forEach(select => {
+                    Array.from(select.options).forEach(option => {
+                        if (seleccionados.includes(option.value) && option.value !== select.value) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+                });
+            }
+
+            document.addEventListener('change', function(event) {
+                if (event.target.classList.contains('producto-select')) {
+                    actualizarOpcionesProductos();
+                }
+            });
+
+            function mostrarMensaje(mensaje, tipo) {
+                messageDiv.textContent = mensaje;
+                messageDiv.style.display = 'block';
+                messageDiv.style.color = tipo === 'success' ? 'green' : 'red';
+                setTimeout(() => messageDiv.style.display = 'none', 5000);
+            }
+        });
+    </script>
+</body>
+</html>

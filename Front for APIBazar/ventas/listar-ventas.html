@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Ventas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Listar Ventas</h1>
+    <div class="container">
+        <table id="ventas-table">
+            <thead>
+                <tr>
+                    <th>ID Venta</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>Total</th>
+                    <th>Productos Vendidos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Las ventas se llenarán dinámicamente -->
+            </tbody>
+        </table>
+        <a href="ventas.html">Volver</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchVentas();
+        });
+
+        function fetchVentas() {
+            fetch('https://apibazar.onrender.com/ventas')
+                .then(response => response.json())
+                .then(ventas => {
+                    const ventasTable = document.getElementById('ventas-table').getElementsByTagName('tbody')[0];
+                    ventas.forEach(venta => {
+                        const row = ventasTable.insertRow();
+
+                        const cellId = row.insertCell(0);
+                        const cellFecha = row.insertCell(1);
+                        const cellCliente = row.insertCell(2);
+                        const cellTotal = row.insertCell(3);
+                        const cellProductos = row.insertCell(4);
+
+                        cellId.textContent = venta.codigo_venta;
+                        cellFecha.textContent = venta.fecha_venta;
+                        cellCliente.textContent = `${venta.unCliente.nombre} ${venta.unCliente.apellido}`;
+                        cellTotal.textContent = `$${venta.total.toFixed(2)}`;
+
+                        const productosList = document.createElement('ul');
+                        venta.productosConCantidad.forEach(item => {
+                            const productoItem = document.createElement('li');
+                            productoItem.textContent = `${item.producto.nombre} (${item.cantidadVendida})`;
+                            productosList.appendChild(productoItem);
+                        });
+                        cellProductos.appendChild(productosList);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

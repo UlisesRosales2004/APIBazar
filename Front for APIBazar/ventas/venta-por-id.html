@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Venta por ID</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .info {
+            margin-bottom: 20px;
+        }
+
+        .info h2 {
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .info p {
+            margin: 5px 0;
+        }
+
+        .productos ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .productos li {
+            background-color: #f2f2f2;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            width: calc(100% - 24px);
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buscar Venta por ID</h1>
+    <div class="container">
+        <input type="number" id="venta-id" placeholder="Ingrese el ID de la venta">
+        <button onclick="buscarVenta()">Buscar</button>
+
+        <div id="venta-info" class="info" style="display:none;">
+            <h2>Información de la Venta</h2>
+            <p><strong>ID Venta:</strong> <span id="venta-id-display"></span></p>
+            <p><strong>Fecha:</strong> <span id="fecha-venta"></span></p>
+            <p><strong>Cliente:</strong> <span id="cliente-venta"></span></p>
+            <p><strong>Total:</strong> <span id="total-venta"></span></p>
+            <div class="productos">
+                <h3>Productos Vendidos</h3>
+                <ul id="productos-list">
+                    <!-- Los productos se llenarán dinámicamente -->
+                </ul>
+            </div>
+        </div>
+
+        <p id="error-message" class="error" style="display:none;"></p>
+        <a href="ventas.html">Volver</a>
+    </div>
+
+    <script>
+        function buscarVenta() {
+            const ventaId = document.getElementById('venta-id').value;
+            if (ventaId) {
+                fetch(`https://apibazar.onrender.com/ventas/${ventaId}`)
+                    .then(response => {
+                        if (response.ok) {
+                            // Verifica si el contenido es JSON
+                            const contentType = response.headers.get('Content-Type');
+                            if (contentType && contentType.includes('application/json')) {
+                                return response.json(); // Intentar parsear la respuesta como JSON
+                            } else {
+                                throw new Error('No se ha encontrado la venta');
+                            }
+                        } else if (response.status === 404) {
+                            // Lanza un error específico si no se encuentra la venta
+                            throw new Error('No se ha encontrado la venta');
+                        } else {
+                            // Lanza un error para otros códigos de estado
+                            throw new Error('Error en la solicitud');
+                        }
+                    })
+                    .then(venta => {
+                        // Asegúrate de que los datos de venta son válidos antes de usarlos
+                        if (!venta || !venta.codigo_venta) {
+                            throw new Error('La venta no tiene datos válidos');
+                        }
+
+                        // Muestra la información de la venta
+                        document.getElementById('venta-info').style.display = 'block';
+                        document.getElementById('venta-id-display').textContent = venta.codigo_venta;
+                        document.getElementById('fecha-venta').textContent = venta.fecha_venta;
+                        document.getElementById('cliente-venta').textContent = `${venta.unCliente.nombre} ${venta.unCliente.apellido}`;
+                        document.getElementById('total-venta').textContent = `$${venta.total.toFixed(2)}`;
+
+                        const productosList = document.getElementById('productos-list');
+                        productosList.innerHTML = ''; // Limpiar la lista antes de agregar nuevos elementos
+                        venta.productosConCantidad.forEach(item => {
+                            const productoItem = document.createElement('li');
+                            productoItem.textContent = `${item.producto.nombre} (${item.cantidadVendida})`;
+                            productosList.appendChild(productoItem);
+                        });
+                        document.getElementById('error-message').style.display = 'none';
+                    })
+                    .catch(error => {
+                        // Maneja el error mostrado en la interfaz de usuario
+                        document.getElementById('venta-info').style.display = 'none';
+                        document.getElementById('error-message').textContent = error.message;
+                        document.getElementById('error-message').style.display = 'block';
+                    });
+            } else {
+                // Mensaje de error si no se ingresa un ID
+                document.getElementById('error-message').textContent = 'Por favor, ingrese un ID de venta.';
+                document.getElementById('error-message').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

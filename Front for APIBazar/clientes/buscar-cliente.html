@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Cliente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buscar Cliente por ID</h1>
+    <div class="container">
+        <form id="buscar-cliente-form">
+            <label for="cliente-id">ID del Cliente:</label>
+            <input type="text" id="cliente-id" required>
+            <button type="submit">Buscar</button>
+        </form>
+        <div class="result" id="cliente-result">
+            <!-- Los detalles del cliente se mostrarán aquí -->
+        </div>
+        <a href="clientes.html">Volver</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('buscar-cliente-form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                buscarCliente();
+            });
+        });
+
+        function buscarCliente() {
+            const clienteId = document.getElementById('cliente-id').value;
+            fetch(`https://apibazar.onrender.com/clientes/${clienteId}`)
+                .then(response => response.json())
+                .then(cliente => {
+                    let resultDiv = document.getElementById('cliente-result');
+                    if (cliente) {
+                        resultDiv.innerHTML = `
+                            <h2>Detalles del Cliente</h2>
+                            <p><strong>ID:</strong> ${cliente.id_cliente}</p>
+                            <p><strong>Nombre:</strong> ${cliente.nombre}</p>
+                            <p><strong>Apellido:</strong> ${cliente.apellido}</p>
+                            <p><strong>DNI:</strong> ${cliente.dni}</p>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = '<p>Cliente no encontrado.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('cliente-result').innerHTML = '<p>Cliente no encontrado.</p>';
+                });
+        }
+    </script>
+</body>
+</html>
+

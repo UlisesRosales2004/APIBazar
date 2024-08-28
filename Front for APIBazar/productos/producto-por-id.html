@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto por ID</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .product-details {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .product-details p {
+            margin: 5px 0;
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buscar Producto por ID</h1>
+    <div class="container">
+        <form id="buscar-producto-form">
+            <label for="id_producto">ID del Producto:</label>
+            <input type="text" id="id_producto" required>
+            <button type="submit">Buscar Producto</button>
+        </form>
+        <div class="product-details" id="producto-detalles">
+            <!-- Detalles del producto se mostrarán aquí -->
+        </div>
+        <div class="message" id="mensaje">
+            <!-- Mensajes de error se mostrarán aquí -->
+        </div>
+        <a href="productos.html">Volver</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('buscar-producto-form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                buscarProducto();
+            });
+        });
+
+        function buscarProducto() {
+            const idProducto = document.getElementById('id_producto').value;
+
+            fetch(`https://apibazar.onrender.com/productos/${idProducto}`)
+                .then(response => response.json())
+                .then(producto => {
+                    const detalles = document.getElementById('producto-detalles');
+                    detalles.innerHTML = `
+                        <p><strong>Código:</strong> ${producto.codigo_producto}</p>
+                        <p><strong>Nombre:</strong> ${producto.nombre}</p>
+                        <p><strong>Marca:</strong> ${producto.marca}</p>
+                        <p><strong>Costo:</strong> ${producto.costo}</p>
+                        <p><strong>Cantidad Disponible:</strong> ${producto.cantidad_disponible}</p>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('mensaje').innerText = 'Error al buscar el producto.';
+                });
+        }
+    </script>
+</body>
+</html>

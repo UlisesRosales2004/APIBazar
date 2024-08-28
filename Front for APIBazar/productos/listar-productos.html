@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+    <div class="container">
+        <table id="productos-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Costo</th>
+                    <th>Cantidad Disponible</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los productos se llenarán aquí mediante JavaScript -->
+            </tbody>
+        </table>
+        <div class="message" id="mensaje">
+            <!-- Mensajes de error se mostrarán aquí -->
+        </div>
+        <a href="productos.html">Volver</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            cargarProductos();
+        });
+
+        function cargarProductos() {
+            fetch('https://apibazar.onrender.com/productos')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#productos-table tbody');
+                    tableBody.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
+                    data.forEach(producto => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${producto.codigo_producto}</td>
+                            <td>${producto.nombre}</td>
+                            <td>${producto.marca}</td>
+                            <td>${producto.costo}</td>
+                            <td>${producto.cantidad_disponible}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('mensaje').innerText = 'Error al cargar la lista de productos.';
+                });
+        }
+    </script>
+</body>
+</html>
