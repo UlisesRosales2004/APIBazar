@@ -115,7 +115,7 @@
         function comprobarConexion() {
             const statusMessage = document.getElementById("statusMessage");
             statusMessage.className = 'status loading';
-            statusMessage.textContent = 'Conectando...';
+            statusMessage.textContent = 'Conectando...esto puede demorar 1 o 2 minutos';
             statusMessage.style.display = 'block'; // Asegúrate de que el mensaje esté visible
 
             fetch('https://apibazar.onrender.com/clientes')
