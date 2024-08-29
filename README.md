@@ -22,9 +22,9 @@ Las pruebas de la API se pueden realizar de dos maneras:
 
 Usando la web "Gestión de comercio": [Gestión de comercio](https://frontforapibazar.onrender.com/index.html)
 
-Es una web creada por mí con la finalidad de agregarle una interfaz gráfica al proyecto. En la misma se pueden realizar pruebas de todos los endpoints.
+"Gestión de comercio" es una web creada por mí con la finalidad de agregarle una interfaz gráfica al proyecto. En la misma se pueden realizar pruebas de todos los endpoints.
 
-Para el correcto uso de la web, se recomienda hacer clic en el botón "Comprobar conexión" y esperar a ver el mensaje "Conexión exitosa".
+Para el correcto uso de la web, se recomienda hacer clic en el botón "Comprobar conexión" y esperar a ver el mensaje "Conexión exitosa" (esto puede demorar uno o dos minutos la primera vez).
 
 Usando el archivo Postman: (APIBazar.postman_collection) incluido en la carpeta principal del proyecto, para realizar pruebas manuales de todos los endpoints.
 
