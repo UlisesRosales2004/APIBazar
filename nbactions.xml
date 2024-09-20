@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.1.0:exec</goal>
             </goals>
             <properties>
-                <exec.vmArgs></exec.vmArgs>
+                <exec.vmArgs>-DB_URL=jdbc:mysql://root:kqmaGqfnyaoahAesBTZqcqdmyKszleML@junction.proxy.rlwy.net:45188/railway  -DB_PASSWORD=kqmaGqfnyaoahAesBTZqcqdmyKszleML  -DB_USER_NAME</exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>com.rosales.APIBazar.ApiBazarApplication</exec.mainClass>
@@ -27,7 +27,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.1.0:exec</goal>
             </goals>
             <properties>
-                <exec.vmArgs>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
+                <exec.vmArgs>-DB_URL=jdbc:mysql://root:kqmaGqfnyaoahAesBTZqcqdmyKszleML@junction.proxy.rlwy.net:45188/railway  -DB_PASSWORD=kqmaGqfnyaoahAesBTZqcqdmyKszleML  -DB_USER_NAME -agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
                 <exec.mainClass>com.rosales.APIBazar.ApiBazarApplication</exec.mainClass>
@@ -45,7 +45,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:3.1.0:exec</goal>
             </goals>
             <properties>
-                <exec.vmArgs></exec.vmArgs>
+                <exec.vmArgs>-DB_URL=jdbc:mysql://root:kqmaGqfnyaoahAesBTZqcqdmyKszleML@junction.proxy.rlwy.net:45188/railway  -DB_PASSWORD=kqmaGqfnyaoahAesBTZqcqdmyKszleML  -DB_USER_NAME</exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.mainClass>com.rosales.APIBazar.ApiBazarApplication</exec.mainClass>
                 <exec.executable>java</exec.executable>
