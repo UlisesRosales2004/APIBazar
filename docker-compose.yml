@@ -9,24 +9,28 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_URL: jdbc:mysql://api_bazar_sql:3306/api_bazar?createDatabaseIfNotExist=true&serverTimezone=UTC
-      DB_USER_NAME: root
-      DB_PASSWORD: 1234
+      DB_URL: jdbc:postgresql://api_bazar_postgres:5432/api_bazar  # Cambiar a PostgreSQL
+      DB_USER_NAME: postgres  # Usuario predeterminado de PostgreSQL
+      DB_PASSWORD: postgres  # Contraseña predeterminada de PostgreSQL
     restart: always
     depends_on:
-      api_bazar_sql:
+      api_bazar_postgres:
         condition: service_healthy
         
-  api_bazar_sql:
-    image: mysql:8.0.33
+  api_bazar_postgres:  # Cambiar MySQL por PostgreSQL
+    image: postgres:15  # Imagen de PostgreSQL (ajusta la versión si es necesario)
     ports:
-      - "3307:3306"
+      - "5432:5432"  # Puerto de PostgreSQL
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_PASSWORD: 1234
-      MYSQL_DATABASE: api_bazar
+      POSTGRES_USER: postgres  # Usuario de PostgreSQL
+      POSTGRES_PASSWORD: postgres  # Contraseña de PostgreSQL
+      POSTGRES_DB: api_bazar  # Base de datos que estás creando
     restart: always
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]  # Comando de healthcheck para PostgreSQL
       timeout: 10s
       retries: 10
+
+volumes:
+  pgdata:
+    driver: local
