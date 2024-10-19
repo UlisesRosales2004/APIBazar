@@ -9,8 +9,8 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_URL: jdbc:mysql://api_bazar_sql:3306/api_bazar?createDatabaseIfNotExist=true&serverTimezone=UTC
-      DB_USER_NAME: root
+      DB_URL: jdbc:postgresql://api_bazar_sql:5432/api_bazar
+      DB_USER_NAME: postgres
       DB_PASSWORD: 1234
     restart: always
     depends_on:
@@ -18,15 +18,16 @@ services:
         condition: service_healthy
         
   api_bazar_sql:
-    image: mysql:8.0.33
+    image: postgres:15
     ports:
-      - "3307:3306"
+      - "5433:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_PASSWORD: 1234
-      MYSQL_DATABASE: api_bazar
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: api_bazar
     restart: always
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       timeout: 10s
+      interval: 5s
       retries: 10
